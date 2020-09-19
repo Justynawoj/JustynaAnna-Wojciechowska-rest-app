@@ -19,10 +19,10 @@ public class DbService {
     }
 
 
-  /*  public Optional<Task> findTaskById(long id){
+    public Optional<Task> findTaskById(long id){
         return repository.findById(id);
         //return new Task();
-    }*/
+    }
 
 
 }
