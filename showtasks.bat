@@ -23,4 +23,4 @@ echo There were errors
 
 :end
 echo.
-echo Tasks have been shown.
+echo Work is finished.
