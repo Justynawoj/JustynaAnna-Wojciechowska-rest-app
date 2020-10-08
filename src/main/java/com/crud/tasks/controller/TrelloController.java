@@ -20,21 +20,23 @@ public class TrelloController {
     @Autowired
     private TrelloClient trelloClient;
 
-/*    @RequestMapping(method = RequestMethod.GET, value = "getTrelloBoards")
+    @RequestMapping(method = RequestMethod.GET, value = "getTrelloBoards")
     public void getTrelloBoards() throws Exception {
 
         List<TrelloBoardDto> trelloBoards = trelloClient.getTrelloBoards();
 
-        trelloBoards.stream()
-                .filter(trelloBoardDto -> !trelloBoardDto.getId().equals(null))
-                .filter(trelloBoardDto -> !trelloBoardDto.getName().equals(null))
-                .filter(trelloBoardDto -> trelloBoardDto.getName().toLowerCase().contains("kodilla"))
-                .forEach(trelloBoardDto -> System.out.println(trelloBoardDto.getId() + " " + trelloBoardDto.getName()));
+        trelloBoards.forEach(trelloBoardDto -> {
+            System.out.println(trelloBoardDto.getName() + " - "+trelloBoardDto.getId());
+            System.out.println("This board contains lists: ");
+            trelloBoardDto.getLists().forEach(trelloList ->
+                    System.out.println(trelloList.getName() + " - " +
+                            trelloList.getId()+ " - "+ trelloList.getIsClosed()));
+        });
 
+    }
 
-    }*/
-
-    @RequestMapping(method = RequestMethod.GET, value = "getTrelloBoards")
+    //My 22.2
+ /*   @RequestMapping(method = RequestMethod.GET, value = "getTrelloBoards")
     public List<TrelloBoardDto> getTrelloBoards() {
 
         List<TrelloBoardDto> trelloBoards = trelloClient.getTrelloBoards();
@@ -48,6 +50,5 @@ public class TrelloController {
      //   return Optional.ofNullable(result).orElse(null);
         return result;
 
-    }
-
+    }*/
 }

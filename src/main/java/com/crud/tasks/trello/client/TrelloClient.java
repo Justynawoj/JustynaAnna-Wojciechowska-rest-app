@@ -40,13 +40,13 @@ public class TrelloClient {
 
         TrelloBoardDto[] boardsResponse = restTemplate.getForObject(url, TrelloBoardDto[].class);
 
-/*            if (boardsResponse != null) {
+            if (boardsResponse != null) {
                 return Arrays.asList(boardsResponse);
             } else {
                 return new ArrayList<>();
-            }*/
+            }
 
-        return Optional.ofNullable(Arrays.asList(boardsResponse)).orElse(null);
+       // return Optional.ofNullable(Arrays.asList(boardsResponse)).orElse(null);
     }
 
     private URI buildURL() {
@@ -55,7 +55,7 @@ public class TrelloClient {
                 .queryParam("key", trelloAppKey)
                 .queryParam("token", trelloAppToken)
                 .queryParam("fields", "name,id")
-
+                .queryParam("lists", "all")
                 .build().encode().toUri();
 
     }
