@@ -1,6 +1,8 @@
 package com.crud.tasks.trello.client;
 
+import com.crud.tasks.domains.CreatedTrelloCard;
 import com.crud.tasks.domains.TrelloBoardDto;
+import com.crud.tasks.domains.TrelloCardDto;
 import com.crud.tasks.exceptions.EmptyListException;
 import com.crud.tasks.trello.config.TrelloConfig;
 import lombok.AllArgsConstructor;
@@ -50,19 +52,42 @@ public class TrelloClient {
         }
 /*    pierwsza wersja
       if (boardsResponse != null) {
+
+    public List<TrelloBoardDto> getTrelloBoards()  {
+        URI url = buildURL();
+        TrelloBoardDto[] boardsResponse = restTemplate.getForObject(url, TrelloBoardDto[].class);
+/*            if (boardsResponse != null) {
+
                 return Arrays.asList(boardsResponse);
             } else {
                 return new ArrayList<>();
             }*/
 
+
 /*         druga wersja
+
+
         return Optional
                 .ofNullable(boardsResponse)
                 .map(res -> Arrays.asList(res))
                 .orElseThrow(()-> new EmptyListException());
          //       .orElse(new ArrayList<>());
 */
+    }
 
+    public CreatedTrelloCard createNewCard(TrelloCardDto trelloCardDto) {
+
+        URI url = UriComponentsBuilder.fromHttpUrl(trelloApiEndpoint + "/cards")
+                .queryParam("key", trelloAppKey)
+                .queryParam("token", trelloAppToken)
+                .queryParam("name", trelloCardDto.getName())
+                .queryParam("desc", trelloCardDto.getDescription())
+                .queryParam("pos", trelloCardDto.getPos())
+                .queryParam("idList", trelloCardDto.getListId())
+                .build().encode().toUri();
+
+
+        return restTemplate.postForObject(url,null,CreatedTrelloCard.class);
     }
 
     private URI buildURL() {
