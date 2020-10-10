@@ -1,8 +1,9 @@
 package com.crud.tasks.trello.client;
 
-import com.crud.tasks.domain.TrelloBoardDto;
-import com.crud.tasks.trello.client.nullpointerexception.EmptyListException;
-import com.sun.media.jfxmedia.logging.Logger;
+import com.crud.tasks.domains.TrelloBoardDto;
+import com.crud.tasks.exceptions.EmptyListException;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -16,6 +17,8 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
+@NoArgsConstructor
+@AllArgsConstructor
 public class TrelloClient {
 
     @Autowired
@@ -40,13 +43,18 @@ public class TrelloClient {
 
         TrelloBoardDto[] boardsResponse = restTemplate.getForObject(url, TrelloBoardDto[].class);
 
-            if (boardsResponse != null) {
+/*            if (boardsResponse != null) {
                 return Arrays.asList(boardsResponse);
             } else {
                 return new ArrayList<>();
-            }
+            }*/
 
-       // return Optional.ofNullable(Arrays.asList(boardsResponse)).orElse(null);
+        return Optional
+                .ofNullable(boardsResponse)
+                .map(res -> Arrays.asList(res))
+                .orElseThrow(()-> new EmptyListException());
+         //       .orElse(new ArrayList<>());
+
     }
 
     private URI buildURL() {

@@ -1,6 +1,6 @@
-package com.crud.tasks.controller;
+package com.crud.tasks.controllers;
 
-import com.crud.tasks.domain.TrelloBoardDto;
+import com.crud.tasks.domains.TrelloBoardDto;
 import com.crud.tasks.trello.client.TrelloClient;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ public class TrelloController {
     @Autowired
     private TrelloClient trelloClient;
 
-    @RequestMapping(method = RequestMethod.GET, value = "getTrelloBoards")
+/*    @RequestMapping(method = RequestMethod.GET, value = "getTrelloBoards")
     public void getTrelloBoards() throws Exception {
 
         List<TrelloBoardDto> trelloBoards = trelloClient.getTrelloBoards();
@@ -33,22 +33,24 @@ public class TrelloController {
                             trelloList.getId()+ " - "+ trelloList.getIsClosed()));
         });
 
-    }
+    }*/
 
     //My 22.2
- /*   @RequestMapping(method = RequestMethod.GET, value = "getTrelloBoards")
+    @RequestMapping(method = RequestMethod.GET, value = "getTrelloBoards")
     public List<TrelloBoardDto> getTrelloBoards() {
 
         List<TrelloBoardDto> trelloBoards = trelloClient.getTrelloBoards();
 
         List<TrelloBoardDto>  result = trelloBoards.stream()
-                .filter(trelloBoardDto -> !trelloBoardDto.getId().equals(null))
-                .filter(trelloBoardDto -> !trelloBoardDto.getName().equals(null))
+
+                .filter(trelloBoardDto -> trelloBoardDto.getId() != null)
+                .filter(trelloBoardDto -> trelloBoardDto.getName() != null)
                 .filter(trelloBoardDto -> trelloBoardDto.getName().toLowerCase().contains("kodilla"))
+                .peek(System.out::println)
                 .collect(Collectors.toList());
 
-     //   return Optional.ofNullable(result).orElse(null);
+
         return result;
 
-    }*/
+    }
 }

@@ -1,7 +1,7 @@
-package com.crud.tasks.service;
+package com.crud.tasks.services;
 
-import com.crud.tasks.domain.Task;
-import com.crud.tasks.repository.TaskRepository;
+import com.crud.tasks.domains.Task;
+import com.crud.tasks.repositories.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
