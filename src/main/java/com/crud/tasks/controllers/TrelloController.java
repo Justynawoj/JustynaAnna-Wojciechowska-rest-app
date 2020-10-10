@@ -1,10 +1,13 @@
 package com.crud.tasks.controllers;
 
+import com.crud.tasks.domains.CreatedTrelloCard;
 import com.crud.tasks.domains.TrelloBoardDto;
+import com.crud.tasks.domains.TrelloCardDto;
 import com.crud.tasks.trello.client.TrelloClient;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,7 +23,7 @@ public class TrelloController {
     @Autowired
     private TrelloClient trelloClient;
 
-/*    @RequestMapping(method = RequestMethod.GET, value = "getTrelloBoards")
+    @RequestMapping(method = RequestMethod.GET, value = "getTrelloBoards")
     public void getTrelloBoards() throws Exception {
 
         List<TrelloBoardDto> trelloBoards = trelloClient.getTrelloBoards();
@@ -33,9 +36,15 @@ public class TrelloController {
                             trelloList.getId()+ " - "+ trelloList.getIsClosed()));
         });
 
-    }*/
+    }
 
-    //My 22.2
+    @RequestMapping(method = RequestMethod.POST, value = "createTrelloCard")
+    public CreatedTrelloCard createdTrelloCard(@RequestBody TrelloCardDto trelloCardDto){
+
+        return trelloClient.createNewCard(trelloCardDto);
+    }
+
+  /*  //My 22.2
     @RequestMapping(method = RequestMethod.GET, value = "getTrelloBoards")
     public List<TrelloBoardDto> getTrelloBoards() {
 
@@ -52,5 +61,5 @@ public class TrelloController {
 
         return result;
 
-    }
+    }*/
 }
