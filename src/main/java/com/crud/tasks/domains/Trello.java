@@ -15,7 +15,4 @@ public class Trello {
     private int board;
     @JsonProperty("card")
     private int card;
-
-    @JsonProperty("some fake property")
-    private int fakeProperty;
 }

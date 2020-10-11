@@ -10,9 +10,6 @@ public class TasksApplication{
 	public static void main(String[] args) {
 SpringApplication.run(TasksApplication.class, args);
 
-	//First Heroku commit
-		//second comment
-		//third comment
 	}
 
 //	@Override

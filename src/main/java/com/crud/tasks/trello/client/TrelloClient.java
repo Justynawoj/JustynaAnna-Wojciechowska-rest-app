@@ -3,10 +3,7 @@ package com.crud.tasks.trello.client;
 import com.crud.tasks.domains.CreatedTrelloCard;
 import com.crud.tasks.domains.TrelloBoardDto;
 import com.crud.tasks.domains.TrelloCardDto;
-import com.crud.tasks.exceptions.EmptyListException;
 import com.crud.tasks.trello.config.TrelloConfig;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,25 +42,6 @@ public class TrelloClient {
             LOGGER.error(e.getMessage(), e);
             return new ArrayList<>();
         }
-/*    pierwsza wersja
-      if (boardsResponse != null) {
-    public List<TrelloBoardDto> getTrelloBoards()  {
-        URI url = buildURL();
-        TrelloBoardDto[] boardsResponse = restTemplate.getForObject(url, TrelloBoardDto[].class);
-/*            if (boardsResponse != null) {
-                return Arrays.asList(boardsResponse);
-            } else {
-                return new ArrayList<>();
-            }*/
-
-
-/*         druga wersja
-        return Optional
-                .ofNullable(boardsResponse)
-                .map(res -> Arrays.asList(res))
-                .orElseThrow(()-> new EmptyListException());
-         //       .orElse(new ArrayList<>());
-*/
     }
 
     public CreatedTrelloCard createNewCard(TrelloCardDto trelloCardDto) {
@@ -89,6 +67,5 @@ public class TrelloClient {
                 .queryParam("fields", "name,id")
                 .queryParam("lists", "all")
                 .build().encode().toUri();
-
     }
 }
