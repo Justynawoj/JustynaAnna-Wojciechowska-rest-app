@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
@@ -20,13 +19,10 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 import static java.util.Optional.ofNullable;
 
 @Component
-@NoArgsConstructor
-@AllArgsConstructor
 public class TrelloClient {
 
     @Autowired
@@ -39,7 +35,6 @@ public class TrelloClient {
 
 
     public List<TrelloBoardDto> getTrelloBoards() {
-
         URI url = buildURL();
 
         try {
@@ -52,12 +47,10 @@ public class TrelloClient {
         }
 /*    pierwsza wersja
       if (boardsResponse != null) {
-
     public List<TrelloBoardDto> getTrelloBoards()  {
         URI url = buildURL();
         TrelloBoardDto[] boardsResponse = restTemplate.getForObject(url, TrelloBoardDto[].class);
 /*            if (boardsResponse != null) {
-
                 return Arrays.asList(boardsResponse);
             } else {
                 return new ArrayList<>();
@@ -65,8 +58,6 @@ public class TrelloClient {
 
 
 /*         druga wersja
-
-
         return Optional
                 .ofNullable(boardsResponse)
                 .map(res -> Arrays.asList(res))
@@ -77,9 +68,9 @@ public class TrelloClient {
 
     public CreatedTrelloCard createNewCard(TrelloCardDto trelloCardDto) {
 
-        URI url = UriComponentsBuilder.fromHttpUrl(trelloApiEndpoint + "/cards")
-                .queryParam("key", trelloAppKey)
-                .queryParam("token", trelloAppToken)
+        URI url = UriComponentsBuilder.fromHttpUrl(trelloConfig.getTrelloApiEndpoint() + "/cards")
+                .queryParam("key", trelloConfig.getTrelloAppKey())
+                .queryParam("token", trelloConfig.getTrelloAppToken())
                 .queryParam("name", trelloCardDto.getName())
                 .queryParam("desc", trelloCardDto.getDescription())
                 .queryParam("pos", trelloCardDto.getPos())
