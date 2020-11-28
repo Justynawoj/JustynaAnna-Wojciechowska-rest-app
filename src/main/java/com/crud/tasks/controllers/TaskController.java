@@ -3,6 +3,7 @@ package com.crud.tasks.controllers;
 import com.crud.tasks.domains.TaskDto;
 import com.crud.tasks.mappers.TaskMapper;
 import com.crud.tasks.services.DbService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +15,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/v1/task")
+
 public class TaskController {
     @Autowired
     private DbService service;
@@ -37,7 +39,8 @@ public class TaskController {
 
     @RequestMapping(method = RequestMethod.PUT, value = "updateTask")
     public TaskDto updateTask(@RequestBody TaskDto taskDto){
-        return taskMapper.mapToTaskDto(service.saveTask(taskMapper.mapToTask(taskDto)));
+        return taskMapper.mapToTaskDto(service.saveTask
+                (taskMapper.mapToTask(taskDto)));
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "createTask", consumes = APPLICATION_JSON_VALUE)
