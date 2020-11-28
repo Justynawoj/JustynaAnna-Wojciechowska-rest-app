@@ -27,7 +27,8 @@ public class EmailScheduler {
     @Scheduled(fixedDelay = 10000)
     public void sendInformationEmail(){
         long size = taskRepository.count();
-        simpleEmailService.send(new Mail(adminConfig.getAdminMail(),SUBJECT,"Currently in database you got: "+ size + " tasks"));
+        String suffix = size > 1? "tasks":"tasks";
+        simpleEmailService.send(new Mail(adminConfig.getAdminMail(),SUBJECT,String.format("Currently in database you got: %s %s", size, suffix)));
     }
 }
 
