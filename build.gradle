@@ -20,8 +20,8 @@ dependencies {
 	compile('io.springfox:springfox-swagger2:2.7.0')
 	compile('io.springfox:springfox-swagger-ui:2.7.0')
 	compile('org.springframework.boot:spring-boot-starter-mail:2.3.4.RELEASE')
+	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
 	compile('com.google.code.gson:gson:2.8.2')
-
 
 	compile('mysql:mysql-connector-java')
 //	compile('org.postgresql:postgresql')
