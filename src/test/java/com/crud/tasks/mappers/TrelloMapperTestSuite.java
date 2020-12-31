@@ -15,7 +15,7 @@ import java.util.List;
 public class TrelloMapperTestSuite {
 
     @InjectMocks
-    private TrelloMapper trelloMapper;
+    TrelloMapper trelloMapper;
 
     TrelloListDto trelloListDto1 = new TrelloListDto("1","fist list", true);
     TrelloListDto trelloListDto2 = new TrelloListDto("2","second list", false);
@@ -57,10 +57,10 @@ public class TrelloMapperTestSuite {
         //Given
         TrelloList trelloList1 = new TrelloList("3","third list", true);
         TrelloList trelloList2 = new TrelloList("4","fourth list", false);
-        List<TrelloList> listOfTrelloList = new ArrayList<>();
-        listOfTrelloList.add(trelloList1);
-        listOfTrelloList.add(trelloList2);
-        TrelloBoard trelloBoard = new TrelloBoard("1","first",listOfTrelloList);
+        List<TrelloList> trelloLists = new ArrayList<>();
+        trelloLists.add(trelloList1);
+        trelloLists.add(trelloList2);
+        TrelloBoard trelloBoard = new TrelloBoard("1","first",trelloLists);
         List<TrelloBoard> trelloBoardList = new ArrayList<>();
         trelloBoardList.add(trelloBoard);
 
@@ -76,15 +76,15 @@ public class TrelloMapperTestSuite {
         //Given
         TrelloList trelloList1 = new TrelloList("3","third list", true);
         TrelloList trelloList2 = new TrelloList("4","fourth list", false);
-        List<TrelloList> listOfTrelloList = new ArrayList<>();
-        listOfTrelloList.add(trelloList1);
-        listOfTrelloList.add(trelloList2);
+        List<TrelloList> trelloLists = new ArrayList<>();
+        trelloLists.add(trelloList1);
+        trelloLists.add(trelloList2);
 
         //When
-        List<TrelloListDto> listOfTrelloListDto = trelloMapper.mapToListDto(listOfTrelloList);
+        List<TrelloListDto> listOfTrelloListDto = trelloMapper.mapToListDto(trelloLists);
         //Then
         Assert.assertEquals(2,listOfTrelloListDto.size());
-        Assert.assertEquals(listOfTrelloList.size(),listOfTrelloListDto.size());
+        Assert.assertEquals(trelloLists.size(),listOfTrelloListDto.size());
     }
 
     @Test
@@ -106,5 +106,9 @@ public class TrelloMapperTestSuite {
         TrelloCard trelloCard = trelloMapper.mapToTrelloCard(trelloCardDto);
         //Then
         Assert.assertEquals(trelloCardDto.getName(),trelloCard.getName());
+        Assert.assertEquals(trelloCardDto.getDescription(),trelloCard.getDescription());
+        Assert.assertEquals(trelloCardDto.getPos(),trelloCard.getPos());
+        Assert.assertEquals(trelloCardDto.getListId(),trelloCard.getListId());
+
     }
 }
