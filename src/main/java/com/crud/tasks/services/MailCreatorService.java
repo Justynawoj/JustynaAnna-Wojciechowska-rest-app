@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +28,9 @@ public class MailCreatorService {
 
     public String buildTrelloCardEmail(String message) {
 
+        boolean isOnceADayMessage = message.contains("Currently");
+        DayOfWeek today = LocalDate.now().getDayOfWeek();
+
         List<String> functionality = new ArrayList<>();
         functionality.add("You can manage your tasks");
         functionality.add("Provides connection with Trello Account");
@@ -39,12 +44,12 @@ public class MailCreatorService {
         context.setVariable("companyName", actuatorConfig.getCompanyName());
         context.setVariable("companyPhone", actuatorConfig.getCompanyPhone());
         context.setVariable("companyEmail", actuatorConfig.getCompanyEmail());
-      //  context.setVariable("admin_name", adminConfig.getAdminName());
         context.setVariable("show_button", false);
         context.setVariable("is_friend", false);
         context.setVariable("admin_config", adminConfig);
         context.setVariable("application_functionality", functionality);
-
+        context.setVariable("is_once_a_day_message",isOnceADayMessage);
+        context.setVariable("day_of_week", today);
         return templateEngine.process("mail/created-trello-card-mail", context);
     }
 }

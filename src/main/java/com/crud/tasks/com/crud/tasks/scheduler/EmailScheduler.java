@@ -23,13 +23,13 @@ public class EmailScheduler {
     private AdminConfig adminConfig;
 
 
-   // @Scheduled(cron = "0 0 10 * * *")
-   // @Scheduled(fixedDelay = 10000)
-    @Scheduled(cron = "0 0 0 25 12 ?")
+    @Scheduled(cron = "0 0 10 * * *")
+   // @Scheduled(fixedDelay = 1000000)
+  //  @Scheduled(cron = "0 0 0 25 12 ?")
     public void sendInformationEmail(){
         long size = taskRepository.count();
         String suffix = size > 1? "tasks":"tasks";
-        simpleEmailService.send(new Mail(adminConfig.getAdminMail(),SUBJECT,String.format("Currently in database you got: %s %s", size, suffix)));
+        simpleEmailService.send(new Mail(adminConfig.getAdminMail2(),SUBJECT,String.format("Currently in database you got: %s %s", size, suffix)));
     }
 }
 
