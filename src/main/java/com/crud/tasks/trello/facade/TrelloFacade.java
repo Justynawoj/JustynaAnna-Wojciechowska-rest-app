@@ -4,33 +4,27 @@ import com.crud.tasks.domains.*;
 import com.crud.tasks.mappers.TrelloMapper;
 import com.crud.tasks.services.TrelloService;
 import com.crud.tasks.trello.validator.TrelloValidator;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 
 @Component
+@AllArgsConstructor
 public class TrelloFacade {
 
-    @Autowired
-    private TrelloService trelloService;
+    private final TrelloService trelloService;
+    private final TrelloMapper trelloMapper;
+    private final TrelloValidator trelloValidator;
 
-    @Autowired
-    private TrelloMapper trelloMapper;
-
-    @Autowired
-    private TrelloValidator trelloValidator;
-
-    public List<TrelloBoardDto> fetchBoards(){
+    public List<TrelloBoardDto> fetchBoards() {
         List<TrelloBoard> trelloBoards = trelloMapper.mapToBoards(trelloService.fetchTrelloBoards());
-        List<TrelloBoard>filteredBoards = trelloValidator.validateTrelloBoards(trelloBoards);
+        List<TrelloBoard> filteredBoards = trelloValidator.validateTrelloBoards(trelloBoards);
         return trelloMapper.mapToBoardsDto(filteredBoards);
     }
 
-    public CreatedTrelloCardDto createCard(final TrelloCardDto trelloCardDto){
+    public CreatedTrelloCardDto createCard(final TrelloCardDto trelloCardDto) {
         TrelloCard trelloCard = trelloMapper.mapToTrelloCard(trelloCardDto);
         trelloValidator.validateCard(trelloCard);
         return trelloService.createTrelloCard(trelloMapper.mapToTrelloCardDto(trelloCard));
