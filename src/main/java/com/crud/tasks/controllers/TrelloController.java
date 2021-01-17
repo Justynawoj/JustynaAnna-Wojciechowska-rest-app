@@ -5,7 +5,6 @@ import com.crud.tasks.domains.TrelloBoardDto;
 import com.crud.tasks.domains.TrelloCardDto;
 import com.crud.tasks.trello.facade.TrelloFacade;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
